@@ -1,6 +1,7 @@
 {
     "trailingComma": "es5",
     "tabWidth": 4,
+    "useTabs": false,
     "semi": false,
     "singleQuote": true,
     "bracketSpacing": true,
@@ -9,7 +10,14 @@
     "insertPragma": false,
     "endOfLine": "lf",
     "singleAttributePerLine": true,
+    "tailwindConfig": "./tailwind.config.ts",
+    "tailwindFunctions": [
+        "clsx",
+        "tw",
+        "cva"
+    ],
     "plugins": [
-        "prettier-plugin-prisma"
+        "prettier-plugin-prisma",
+        "prettier-plugin-tailwindcss"
     ]
 }
