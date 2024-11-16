@@ -32,19 +32,23 @@ export default {
     providers: [
         Google({
             clientId: process.env.AUTH_GOOGLE_ID,
-            clientSecret: process.env.AUTH_GOOGLE_SECRET
+            clientSecret: process.env.AUTH_GOOGLE_SECRET,
+            allowDangerousEmailAccountLinking: true
         }),
         GitHub({
             clientId: process.env.AUTH_GITHUB_ID,
-            clientSecret: process.env.AUTH_GITHUB_SECRET
+            clientSecret: process.env.AUTH_GITHUB_SECRET,
+            allowDangerousEmailAccountLinking: true
         }),
         Discord({
             clientId: process.env.AUTH_DISCORD_ID,
-            clientSecret: process.env.AUTH_DISCORD_SECRET
+            clientSecret: process.env.AUTH_DISCORD_SECRET,
+            allowDangerousEmailAccountLinking: true
         }),
         LinkedIn({
             clientId: process.env.AUTH_LINKEDIN_ID,
-            clientSecret: process.env.AUTH_LINKEDIN_SECRET
+            clientSecret: process.env.AUTH_LINKEDIN_SECRET,
+            allowDangerousEmailAccountLinking: true
         }),
         Credentials({
             async authorize(credentials) {

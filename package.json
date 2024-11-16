@@ -1,17 +1,22 @@
 {
-  "name": "website",
+  "name": "studenttechhub",
   "version": "0.1.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StudentTechHub/StudentTechHub.git"
+  },
   "scripts": {
-    "dev": "next dev",
+    "dev": "infisical run --env=dev --path=/website -- npx next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:generate": "prisma generate",
-    "db:migrate": "prisma migrate dev",
-    "db:studio": "prisma studio",
-    "postinstall": "prisma generate"
+    "db:generate": "infisical run --env=dev --path=/website -- npx prisma generate",
+    "db:migrate": "infisical run --env=dev --path=/website -- npx prisma migrate dev",
+    "db:studio": "infisical run --env=dev --path=/website -- npx prisma studio",
+    "postinstall": "infisical run --env=dev --path=/website -- npx prisma generate"
   },
+  "prisma": {},
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.3",
     "@hookform/resolvers": "^3.9.1",
