@@ -11,53 +11,41 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				background: 'hsl(var(--background))',
-				foreground: 'hsl(var(--foreground))',
-				card: {
-					DEFAULT: 'hsl(var(--card))',
-					foreground: 'hsl(var(--card-foreground))'
-				},
-				popover: {
-					DEFAULT: 'hsl(var(--popover))',
-					foreground: 'hsl(var(--popover-foreground))'
-				},
 				primary: {
-					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					'50': '#EFFAFF',
+					'100': '#DEF3FF',
+					'200': '#B6EAFF',
+					'300': '#75DBFF',
+					'400': '#2CCAFF',
+					'500': '#0ABCFF',
+					'600': '#0090D4',
+					'700': '#0072AB',
+					'800': '#00608D',
+					'900': '#065074',
+					'950': '#04334D',
+					DEFAULT: '#0ABCFF',
 				},
 				secondary: {
-					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
+					DEFAULT: '#4A5568',
+					'50': '#F6F7F9',
+					'100': '#ECEEF2',
+					'200': '#D6DAE1',
+					'300': '#B1BAC8',
+					'400': '#8795A9',
+					'500': '#68788F',
+					'600': '#536076',
+					'700': '#4A5568',
+					'800': '#3B4351',
+					'900': '#343A46',
+					'950': '#23272E',
 				},
-				muted: {
-					DEFAULT: 'hsl(var(--muted))',
-					foreground: 'hsl(var(--muted-foreground))'
-				},
-				accent: {
-					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))'
-				},
-				destructive: {
-					DEFAULT: 'hsl(var(--destructive))',
-					foreground: 'hsl(var(--destructive-foreground))'
-				},
-				border: 'hsl(var(--border))',
-				input: 'hsl(var(--input))',
-				ring: 'hsl(var(--ring))',
-				chart: {
-					'1': 'hsl(var(--chart-1))',
-					'2': 'hsl(var(--chart-2))',
-					'3': 'hsl(var(--chart-3))',
-					'4': 'hsl(var(--chart-4))',
-					'5': 'hsl(var(--chart-5))'
-				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
 			}
-		},
+		}
 	},
-	plugins: [tailwindcssAnimate],
+	plugins: [tailwindcssAnimate,],
 } satisfies Config;
