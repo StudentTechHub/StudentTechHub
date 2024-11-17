@@ -5,14 +5,14 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 dark:ring-offset-border dark:focus-visible:ring-neutral-dark-950",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 dark:ring-offset-border dark:focus-visible:ring-neutral-950",
   {
     variants: {
       variant: {
         primary: `bg-primary text-white-0 hover:bg-primary/90 dark:bg-primary dark:text-white-0 dark:hover:bg-primary/90 active:bg-primary-600 dark:active:bg-primary-600 disabled:bg-primary/50`,
-        secondary: "text-neutral-950 dark:text-neutral-dark-950 hover:bg-neutral-100 dark:border-neutral-800 dark:hover:bg-neutral-dark-100 dark:hover:bg-neutral-dark-100 active:bg-neutral-200 dark:active:bg-neutral-dark-200 disabled:bg-transparent disabled:text-neutral-500",
-        outline: "border border-neutral-950 dark:border-neutral-dark-950 text-neutral-950 dark:text-neutral-dark-950 hover:bg-neutral-100 dark:hover:bg-neutral-dark-100 active:bg-neutral-200 dark:active:bg-neutral-dark-200",
-        link: "text-neutral-900 underline-offset-4 hover:underline dark:text-neutral-50",
+        secondary: "text-neutral-950 dark:text-neutral-950 hover:bg-neutral-100 dark:border-neutral-800 dark:hover:bg-neutral-100 dark:hover:bg-neutral-100 active:bg-neutral-200 dark:active:bg-neutral-200 disabled:bg-transparent disabled:text-neutral-500",
+        outline: "border border-neutral-950 dark:border-neutral-950 text-neutral-950 dark:text-neutral-950 hover:bg-neutral-100 dark:hover:bg-neutral-100 active:bg-neutral-200 dark:active:bg-neutral-200",
+        link: "text-neutral-900 underline-offset-4 hover:underline dark:text-neutral-950",
         danger: "bg-danger text-neutral-50 hover:bg-danger/80 dark:bg-danger dark:text-neutral-50 dark:hover:bg-danger/90 active:bg-danger-500",
         success: "bg-success text-neutral-50 hover:bg-success/80 dark:bg-success dark:text-neutral-50 dark:hover:bg-success/90 active:bg-success-500",
       },
