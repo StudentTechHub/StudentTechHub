@@ -1,54 +1,66 @@
-"use client";
+'use client'
 
-import * as z from "zod";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useTransition } from "react";
-import { FaDiscord, FaGithub, FaLinkedin, FaGoogle } from "react-icons/fa";
+import * as z from 'zod'
+import Link from 'next/link'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useSearchParams } from 'next/navigation'
+import { useEffect, useTransition } from 'react'
+import { FaDiscord, FaGithub, FaLinkedin, FaGoogle } from 'react-icons/fa'
 
-import { cn } from "@/lib/utils";
-import { login } from "@/actions/auth/login";
-import { Input } from "@/components/ui/input";
-import { signIn } from "next-auth/react";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
-import { LoginSchema } from "@/types/schemas";
-import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { cn } from '@/lib/utils'
+import { login } from '@/actions/auth/login'
+import { Input } from '@/components/ui/input'
+import { signIn } from 'next-auth/react'
+import { Button } from '@/components/ui/button'
+import { useToast } from '@/hooks/use-toast'
+import { LoginSchema } from '@/types/schemas'
+import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from '@/components/ui/form'
 
 export const LoginForm = () => {
-    const [isPending, startTransition] = useTransition();
+    const [isPending, startTransition] = useTransition()
 
-    const searchParams = useSearchParams();
-    const { toast } = useToast();
+    const searchParams = useSearchParams()
+    const { toast } = useToast()
 
-    const urlError = searchParams.get("error") == "OAuthAccountNotLinked" ? "Email already in use with different provider!" : "";
+    const urlError =
+        searchParams.get('error') == 'OAuthAccountNotLinked'
+            ? 'Email already in use with different provider!'
+            : ''
 
     useEffect(() => {
         if (urlError) {
             toast({
-                variant: "destructive",
-                title: "Login Error",
-                description: urlError
-            });
+                variant: 'destructive',
+                title: 'Login Error',
+                description: urlError,
+            })
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-    const callbackUrl = searchParams.get("callbackUrl");
+    }, [])
+    const callbackUrl = searchParams.get('callbackUrl')
 
     const form = useForm<z.infer<typeof LoginSchema>>({
         resolver: zodResolver(LoginSchema),
         defaultValues: {
-            email: "",
-            password: ""
-        }
-    });
+            email: '',
+            password: '',
+        },
+    })
 
-    const handleSocialLogin = (provider: "google" | "github" | "discord" | "linkedin") => {
+    const handleSocialLogin = (
+        provider: 'google' | 'github' | 'discord' | 'linkedin'
+    ) => {
         signIn(provider, { callbackUrl: callbackUrl || DEFAULT_LOGIN_REDIRECT })
     }
 
@@ -56,30 +68,30 @@ export const LoginForm = () => {
         startTransition(() => {
             login(values, callbackUrl)
                 .then((res) => {
-                    if (!res?.success && res?.type === "error") {
-                        form.reset();
+                    if (!res?.success && res?.type === 'error') {
+                        form.reset()
                         toast({
-                            variant: "destructive",
+                            variant: 'destructive',
                             title: res.title,
-                            description: res.message
+                            description: res.message,
                         })
                     }
                     if (res?.success) {
-                        form.reset();
+                        form.reset()
                         toast({
-                            variant: "default",
+                            variant: 'default',
                             title: res.title,
-                            description: res.message
+                            description: res.message,
                         })
                     }
                 })
                 .catch((error) => {
-                    if (error.message !== "NEXT_REDIRECT") {
+                    if (error.message !== 'NEXT_REDIRECT') {
                         toast({
-                            variant: "destructive",
-                            title: "An error occurred",
-                            description: "Please try again later"
-                        });
+                            variant: 'destructive',
+                            title: 'An error occurred',
+                            description: 'Please try again later',
+                        })
                     }
                 })
         })
@@ -89,11 +101,9 @@ export const LoginForm = () => {
         <>
             <Card className="w-[400px] shadow-md">
                 <CardHeader>
-                    <div className='w-full flex flex-col gap-y-4 items-center justify-center'>
-                        <h1 className={cn("text-3xl font-semibold")}>
-                            🔑Auth
-                        </h1>
-                        <p className='text-muted-foreground text-sm'>
+                    <div className="flex w-full flex-col items-center justify-center gap-y-4">
+                        <h1 className={cn('text-3xl font-semibold')}>🔑Auth</h1>
+                        <p className="text-muted-foreground text-sm">
                             Welcome Back
                         </p>
                     </div>
@@ -137,7 +147,12 @@ export const LoginForm = () => {
                                                     placeholder="********"
                                                 />
                                             </FormControl>
-                                            <Button size={"sm"} variant="link" asChild className="px-0 font-normal">
+                                            <Button
+                                                size={'sm'}
+                                                variant="link"
+                                                asChild
+                                                className="px-0 font-normal"
+                                            >
                                                 <Link href="/reset-password">
                                                     Forgot Password?
                                                 </Link>
@@ -158,44 +173,52 @@ export const LoginForm = () => {
                     </Form>
                 </CardContent>
                 <CardFooter>
-                    <div className="flex items-center w-full gap-x-2">
+                    <div className="flex w-full items-center gap-x-2">
                         <Button
-                            size={"lg"}
+                            size={'lg'}
                             className="w-full"
-                            variant={"outline"}
-                            onClick={() => handleSocialLogin("google")}>
+                            variant={'outline'}
+                            onClick={() => handleSocialLogin('google')}
+                        >
                             <FaGoogle />
                         </Button>
                         <Button
-                            size={"lg"}
+                            size={'lg'}
                             className="w-full"
-                            variant={"outline"}
-                            onClick={() => handleSocialLogin("github")}>
+                            variant={'outline'}
+                            onClick={() => handleSocialLogin('github')}
+                        >
                             <FaGithub />
                         </Button>
                         <Button
-                            size={"lg"}
+                            size={'lg'}
                             className="w-full"
-                            variant={"outline"}
-                            onClick={() => handleSocialLogin("linkedin")}>
+                            variant={'outline'}
+                            onClick={() => handleSocialLogin('linkedin')}
+                        >
                             <FaLinkedin />
                         </Button>
                         <Button
-                            size={"lg"}
+                            size={'lg'}
                             className="w-full"
-                            variant={"outline"}
-                            onClick={() => handleSocialLogin("discord")}>
+                            variant={'outline'}
+                            onClick={() => handleSocialLogin('discord')}
+                        >
                             <FaDiscord />
                         </Button>
                     </div>
                 </CardFooter>
                 <CardFooter>
-                    <Button variant={"link"} className="font-normal w-full" size={"sm"} asChild>
-                        <Link href={"/signup"}>
+                    <Button
+                        variant={'link'}
+                        className="w-full font-normal"
+                        size={'sm'}
+                        asChild
+                    >
+                        <Link href={'/signup'}>
                             Don&apos;t have an account?
                         </Link>
                     </Button>
-
                 </CardFooter>
             </Card>
         </>

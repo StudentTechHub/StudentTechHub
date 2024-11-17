@@ -1,52 +1,57 @@
-"use client";
+'use client'
 
-import * as z from "zod";
-import Link from "next/link";
-import { useToast } from "@/hooks/use-toast";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransition } from "react";
+import * as z from 'zod'
+import Link from 'next/link'
+import { useToast } from '@/hooks/use-toast'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useTransition } from 'react'
 
-import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
-import { ResetSchema } from "@/types";
-import { resetPassword } from "@/actions/auth/password";
-import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { cn } from '@/lib/utils'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { useForm } from 'react-hook-form'
+import { ResetSchema } from '@/types'
+import { resetPassword } from '@/actions/auth/password'
+import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card'
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from '@/components/ui/form'
 
 export const ResetForm = () => {
-    const [isPending, startTransition] = useTransition();
-    const { toast } = useToast();
+    const [isPending, startTransition] = useTransition()
+    const { toast } = useToast()
 
     const form = useForm<z.infer<typeof ResetSchema>>({
         resolver: zodResolver(ResetSchema),
         defaultValues: {
-            email: "",
-        }
-    });
+            email: '',
+        },
+    })
 
     const onSubmit = (values: z.infer<typeof ResetSchema>) => {
-
         startTransition(() => {
-            resetPassword(values)
-                .then((data) => {
-                    if (!data?.success && data?.type === "error") {
-                        form.reset();
-                        toast({
-                            variant: "destructive",
-                            title: data.title,
-                            description: data.message
-                        })
-                    } else {
-                        form.reset();
-                        toast({
-                            variant: "default",
-                            title: data.title,
-                            description: data.message
-                        })
-                    }
-                })
+            resetPassword(values).then((data) => {
+                if (!data?.success && data?.type === 'error') {
+                    form.reset()
+                    toast({
+                        variant: 'destructive',
+                        title: data.title,
+                        description: data.message,
+                    })
+                } else {
+                    form.reset()
+                    toast({
+                        variant: 'default',
+                        title: data.title,
+                        description: data.message,
+                    })
+                }
+            })
         })
     }
 
@@ -54,11 +59,9 @@ export const ResetForm = () => {
         <>
             <Card className="w-[400px] shadow-md">
                 <CardHeader>
-                    <div className='w-full flex flex-col gap-y-4 items-center justify-center'>
-                        <h1 className={cn("text-3xl font-semibold")}>
-                            🔑Auth
-                        </h1>
-                        <p className='text-muted-foreground text-sm'>
+                    <div className="flex w-full flex-col items-center justify-center gap-y-4">
+                        <h1 className={cn('text-3xl font-semibold')}>🔑Auth</h1>
+                        <p className="text-muted-foreground text-sm">
                             Enter new password
                         </p>
                     </div>
@@ -75,9 +78,7 @@ export const ResetForm = () => {
                                     name="email"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>
-                                                Email
-                                            </FormLabel>
+                                            <FormLabel>Email</FormLabel>
                                             <FormControl>
                                                 <Input
                                                     disabled={isPending}
@@ -102,10 +103,13 @@ export const ResetForm = () => {
                     </Form>
                 </CardContent>
                 <CardFooter>
-                    <Button variant={"link"} className="font-normal w-full" size={"sm"} asChild>
-                        <Link href={"/login"}>
-                            Back to Login
-                        </Link>
+                    <Button
+                        variant={'link'}
+                        className="w-full font-normal"
+                        size={'sm'}
+                        asChild
+                    >
+                        <Link href={'/login'}>Back to Login</Link>
                     </Button>
                 </CardFooter>
             </Card>

@@ -1,4 +1,4 @@
-import { NewPasswordForm } from "@/components/auth/NewPasswordForm";
+import { NewPasswordForm } from '@/components/auth/NewPasswordForm'
 
 const NewPasswordPage = () => {
     return (
@@ -8,4 +8,4 @@ const NewPasswordPage = () => {
     )
 }
 
-export default NewPasswordPage;
+export default NewPasswordPage

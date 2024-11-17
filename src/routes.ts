@@ -3,10 +3,7 @@
  * These routes don't require authentication
  * @type {string[]}
  */
-export const publicRoutes: string[] = [
-    "/",
-    "/verify"
-]
+export const publicRoutes: string[] = ['/', '/verify']
 
 /**
  * Routes used for authentication
@@ -14,11 +11,11 @@ export const publicRoutes: string[] = [
  * @type {string[]}
  */
 export const authRoutes: string[] = [
-    "/login",
-    "/signup",
-    "/error",
-    "/reset-password",
-    "/new-password",
+    '/login',
+    '/signup',
+    '/error',
+    '/reset-password',
+    '/new-password',
 ]
 
 /**
@@ -26,10 +23,10 @@ export const authRoutes: string[] = [
  * Routes under this prefix are used for authentication
  * @type {string}
  */
-export const apiAuthPrefix: string = "/api/auth";
+export const apiAuthPrefix: string = '/api/auth'
 
 /**
  * Default redirect after login
  * @type {string}
  */
-export const DEFAULT_LOGIN_REDIRECT: string = "/";
+export const DEFAULT_LOGIN_REDIRECT: string = '/'

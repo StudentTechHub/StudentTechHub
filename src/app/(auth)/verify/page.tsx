@@ -1,4 +1,4 @@
-import VerificationForm from "@/components/auth/VerificationForm";
+import VerificationForm from '@/components/auth/VerificationForm'
 
 const NewVerificationPage = () => {
     return (
@@ -8,4 +8,4 @@ const NewVerificationPage = () => {
     )
 }
 
-export default NewVerificationPage;
+export default NewVerificationPage

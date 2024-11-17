@@ -1,37 +1,40 @@
-"use server";
+'use server'
 
-import * as z from "zod";
-import { sendVerificationEmail } from "@/lib/mail";
-import { getUserByEmail, prisma } from "@/lib/db";
-import { hashPassword } from "@/utils/crypto";
-import { SignUpSchema } from "@/types/schemas";
-import { generateVerificationToken } from "@/utils/tokens";
-import { CommonResponse } from "@/types";
+import * as z from 'zod'
+import { sendVerificationEmail } from '@/lib/mail'
+import { getUserByEmail, prisma } from '@/lib/db'
+import { hashPassword } from '@/utils/crypto'
+import { SignUpSchema } from '@/types/schemas'
+import { generateVerificationToken } from '@/utils/tokens'
+import { CommonResponse } from '@/types'
 
-export const signup = async (values: z.infer<typeof SignUpSchema>): Promise<CommonResponse<Record<string, never>>> => {
-    const validatedFields = SignUpSchema.safeParse(values);
+export const signup = async (
+    values: z.infer<typeof SignUpSchema>
+): Promise<CommonResponse<Record<string, never>>> => {
+    const validatedFields = SignUpSchema.safeParse(values)
 
     if (!validatedFields.success) {
         return {
             success: false,
-            type: "error",
-            title: "Invalid fields",
-            message: validatedFields.error.errors[0].message
+            type: 'error',
+            title: 'Invalid fields',
+            message: validatedFields.error.errors[0].message,
         }
     }
 
-    const { name, email, password } = validatedFields.data;
-    const hashedPassword = await hashPassword(password);
+    const { name, email, password } = validatedFields.data
+    const hashedPassword = await hashPassword(password)
 
     // * Check if the email is already in use
-    const existingUser = await getUserByEmail(email);
+    const existingUser = await getUserByEmail(email)
 
     if (existingUser) {
         return {
             success: false,
-            type: "error",
-            title: "Email already in use",
-            message: "The email you provided is already in use. Please use a different email."
+            type: 'error',
+            title: 'Email already in use',
+            message:
+                'The email you provided is already in use. Please use a different email.',
         }
     }
 
@@ -39,27 +42,32 @@ export const signup = async (values: z.infer<typeof SignUpSchema>): Promise<Comm
         data: {
             name,
             email,
-            password: hashedPassword
-        }
-    });
+            password: hashedPassword,
+        },
+    })
 
-    const verificationToken = await generateVerificationToken(email);
+    const verificationToken = await generateVerificationToken(email)
     if (!verificationToken) {
         return {
             success: false,
-            type: "error",
-            title: "Error",
-            message: "An error occurred while generating the verification token. Please try again."
+            type: 'error',
+            title: 'Error',
+            message:
+                'An error occurred while generating the verification token. Please try again.',
         }
     }
 
-    await sendVerificationEmail(verificationToken?.identifier, verificationToken.token);
+    await sendVerificationEmail(
+        verificationToken?.identifier,
+        verificationToken.token
+    )
 
     return {
         success: true,
-        type: "success",
-        title: "Account created",
-        message: "Your account has been created successfully. Please check your email to verify your account.",
-        data: {}
+        type: 'success',
+        title: 'Account created',
+        message:
+            'Your account has been created successfully. Please check your email to verify your account.',
+        data: {},
     }
 }

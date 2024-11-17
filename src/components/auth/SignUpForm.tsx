@@ -1,55 +1,67 @@
-"use client";
+'use client'
 
-import * as z from "zod";
-import Link from "next/link";
-import { signIn } from "next-auth/react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useTransition } from "react";
-import { FaDiscord, FaGithub, FaLinkedin, FaGoogle } from "react-icons/fa";
+import * as z from 'zod'
+import Link from 'next/link'
+import { signIn } from 'next-auth/react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useSearchParams } from 'next/navigation'
+import { useEffect, useTransition } from 'react'
+import { FaDiscord, FaGithub, FaLinkedin, FaGoogle } from 'react-icons/fa'
 
-import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { signup } from "@/actions/auth/signup";
-import { useToast } from "@/hooks/use-toast";
-import { SignUpSchema } from "@/types/schemas";
-import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { cn } from '@/lib/utils'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { signup } from '@/actions/auth/signup'
+import { useToast } from '@/hooks/use-toast'
+import { SignUpSchema } from '@/types/schemas'
+import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from '@/components/ui/form'
 
 export const SignUpForm = () => {
-    const [isPending, startTransition] = useTransition();
+    const [isPending, startTransition] = useTransition()
 
-    const searchParams = useSearchParams();
-    const { toast } = useToast();
+    const searchParams = useSearchParams()
+    const { toast } = useToast()
 
-    const urlError = searchParams.get("error") == "OAuthAccountNotLinked" ? "Email already in use with different provider!" : "";
+    const urlError =
+        searchParams.get('error') == 'OAuthAccountNotLinked'
+            ? 'Email already in use with different provider!'
+            : ''
 
     useEffect(() => {
         if (urlError) {
             toast({
-                variant: "destructive",
-                title: "SignUp Error",
-                description: urlError
-            });
+                variant: 'destructive',
+                title: 'SignUp Error',
+                description: urlError,
+            })
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-    const callbackUrl = searchParams.get("callbackUrl");
+    }, [])
+    const callbackUrl = searchParams.get('callbackUrl')
 
     const form = useForm<z.infer<typeof SignUpSchema>>({
         resolver: zodResolver(SignUpSchema),
         defaultValues: {
-            name: "",
-            email: "",
-            password: ""
-        }
-    });
+            name: '',
+            email: '',
+            password: '',
+        },
+    })
 
-    const handleSocialLogin = (provider: "google" | "github" | "discord" | "linkedin") => {
+    const handleSocialLogin = (
+        provider: 'google' | 'github' | 'discord' | 'linkedin'
+    ) => {
         signIn(provider, { callbackUrl: callbackUrl || DEFAULT_LOGIN_REDIRECT })
     }
 
@@ -57,28 +69,28 @@ export const SignUpForm = () => {
         startTransition(() => {
             signup(values)
                 .then((res) => {
-                    if (!res?.success && res?.type === "error") {
-                        form.reset();
+                    if (!res?.success && res?.type === 'error') {
+                        form.reset()
                         toast({
-                            variant: "destructive",
+                            variant: 'destructive',
                             title: res.title,
-                            description: res.message
+                            description: res.message,
                         })
                     }
                     if (res?.success) {
-                        form.reset();
+                        form.reset()
                         toast({
-                            variant: "default",
+                            variant: 'default',
                             title: res.title,
-                            description: res.message
+                            description: res.message,
                         })
                     }
                 })
                 .catch((_error) => {
                     toast({
-                        variant: "destructive",
-                        title: "An error occurred",
-                        description: "Please try again later"
+                        variant: 'destructive',
+                        title: 'An error occurred',
+                        description: 'Please try again later',
                     })
                 })
         })
@@ -88,11 +100,9 @@ export const SignUpForm = () => {
         <>
             <Card className="w-[400px] shadow-md">
                 <CardHeader>
-                    <div className='w-full flex flex-col gap-y-4 items-center justify-center'>
-                        <h1 className={cn("text-3xl font-semibold")}>
-                            🔑Auth
-                        </h1>
-                        <p className='text-muted-foreground text-sm'>
+                    <div className="flex w-full flex-col items-center justify-center gap-y-4">
+                        <h1 className={cn('text-3xl font-semibold')}>🔑Auth</h1>
+                        <p className="text-muted-foreground text-sm">
                             Create an account
                         </p>
                     </div>
@@ -109,9 +119,7 @@ export const SignUpForm = () => {
                                     name="name"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>
-                                                Name
-                                            </FormLabel>
+                                            <FormLabel>Name</FormLabel>
                                             <FormControl>
                                                 <Input
                                                     disabled={isPending}
@@ -129,9 +137,7 @@ export const SignUpForm = () => {
                                     name="email"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>
-                                                Email
-                                            </FormLabel>
+                                            <FormLabel>Email</FormLabel>
                                             <FormControl>
                                                 <Input
                                                     disabled={isPending}
@@ -149,9 +155,7 @@ export const SignUpForm = () => {
                                     name="password"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>
-                                                Password
-                                            </FormLabel>
+                                            <FormLabel>Password</FormLabel>
                                             <FormControl>
                                                 <Input
                                                     disabled={isPending}
@@ -176,42 +180,49 @@ export const SignUpForm = () => {
                     </Form>
                 </CardContent>
                 <CardFooter>
-                    <div className="flex items-center w-full gap-x-2">
+                    <div className="flex w-full items-center gap-x-2">
                         <Button
-                            size={"lg"}
+                            size={'lg'}
                             className="w-full"
-                            variant={"outline"}
-                            onClick={() => handleSocialLogin("google")}>
+                            variant={'outline'}
+                            onClick={() => handleSocialLogin('google')}
+                        >
                             <FaGoogle />
                         </Button>
                         <Button
-                            size={"lg"}
+                            size={'lg'}
                             className="w-full"
-                            variant={"outline"}
-                            onClick={() => handleSocialLogin("github")}>
+                            variant={'outline'}
+                            onClick={() => handleSocialLogin('github')}
+                        >
                             <FaGithub />
                         </Button>
                         <Button
-                            size={"lg"}
+                            size={'lg'}
                             className="w-full"
-                            variant={"outline"}
-                            onClick={() => handleSocialLogin("linkedin")}>
+                            variant={'outline'}
+                            onClick={() => handleSocialLogin('linkedin')}
+                        >
                             <FaLinkedin />
                         </Button>
                         <Button
-                            size={"lg"}
+                            size={'lg'}
                             className="w-full"
-                            variant={"outline"}
-                            onClick={() => handleSocialLogin("discord")}>
+                            variant={'outline'}
+                            onClick={() => handleSocialLogin('discord')}
+                        >
                             <FaDiscord />
                         </Button>
                     </div>
                 </CardFooter>
                 <CardFooter>
-                    <Button variant={"link"} className="font-normal w-full" size={"sm"} asChild>
-                        <Link href={"/login"}>
-                            Already have an account?
-                        </Link>
+                    <Button
+                        variant={'link'}
+                        className="w-full font-normal"
+                        size={'sm'}
+                        asChild
+                    >
+                        <Link href={'/login'}>Already have an account?</Link>
                     </Button>
                 </CardFooter>
             </Card>

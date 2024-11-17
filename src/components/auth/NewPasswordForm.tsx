@@ -1,65 +1,71 @@
-"use client";
+'use client'
 
-import * as z from "zod";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransition } from "react";
-import { useSearchParams } from "next/navigation";
+import * as z from 'zod'
+import Link from 'next/link'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useTransition } from 'react'
+import { useSearchParams } from 'next/navigation'
 
-import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { setNewPassword } from "@/actions/auth/password";
-import { NewPasswordSchema } from "@/types";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Card, CardHeader, CardContent, CardFooter } from "../ui/card";
-import { useToast } from "@/hooks/use-toast";
+import { cn } from '@/lib/utils'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { setNewPassword } from '@/actions/auth/password'
+import { NewPasswordSchema } from '@/types'
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from '@/components/ui/form'
+import { Card, CardHeader, CardContent, CardFooter } from '../ui/card'
+import { useToast } from '@/hooks/use-toast'
 
 export const NewPasswordForm = () => {
-    const [isPending, startTransition] = useTransition();
-    const { toast } = useToast();
+    const [isPending, startTransition] = useTransition()
+    const { toast } = useToast()
 
-    const searchParams = useSearchParams();
-    const token = searchParams.get("token");
+    const searchParams = useSearchParams()
+    const token = searchParams.get('token')
 
     const form = useForm<z.infer<typeof NewPasswordSchema>>({
         resolver: zodResolver(NewPasswordSchema),
         defaultValues: {
-            password: "",
-            confirmPassword: "",
-        }
-    });
+            password: '',
+            confirmPassword: '',
+        },
+    })
 
     const onSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
         if (!token) {
             toast({
-                variant: "destructive",
-                title: "Invalid Token",
-                description: "Token is invalid"
+                variant: 'destructive',
+                title: 'Invalid Token',
+                description: 'Token is invalid',
             })
-            return;
+            return
         }
 
         startTransition(() => {
-            setNewPassword(values, token)
-                .then((res) => {
-                    if (!res?.success && res?.type === "error") {
-                        form.reset();
-                        toast({
-                            variant: "destructive",
-                            title: res.title,
-                            description: res.message
-                        })
-                    } else {
-                        form.reset();
-                        toast({
-                            variant: "default",
-                            title: res.title,
-                            description: res.message
-                        })
-                    }
-                })
+            setNewPassword(values, token).then((res) => {
+                if (!res?.success && res?.type === 'error') {
+                    form.reset()
+                    toast({
+                        variant: 'destructive',
+                        title: res.title,
+                        description: res.message,
+                    })
+                } else {
+                    form.reset()
+                    toast({
+                        variant: 'default',
+                        title: res.title,
+                        description: res.message,
+                    })
+                }
+            })
         })
     }
 
@@ -67,11 +73,9 @@ export const NewPasswordForm = () => {
         <>
             <Card className="w-[400px] shadow-md">
                 <CardHeader>
-                    <div className='w-full flex flex-col gap-y-4 items-center justify-center'>
-                        <h1 className={cn("text-3xl font-semibold")}>
-                            🔑Auth
-                        </h1>
-                        <p className='text-muted-foreground text-sm'>
+                    <div className="flex w-full flex-col items-center justify-center gap-y-4">
+                        <h1 className={cn('text-3xl font-semibold')}>🔑Auth</h1>
+                        <p className="text-muted-foreground text-sm">
                             Enter new password
                         </p>
                     </div>
@@ -88,9 +92,7 @@ export const NewPasswordForm = () => {
                                     name="password"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>
-                                                Password
-                                            </FormLabel>
+                                            <FormLabel>Password</FormLabel>
                                             <FormControl>
                                                 <Input
                                                     disabled={isPending}
@@ -135,10 +137,13 @@ export const NewPasswordForm = () => {
                     </Form>
                 </CardContent>
                 <CardFooter>
-                    <Button variant={"link"} className="font-normal w-full" size={"sm"} asChild>
-                        <Link href={"/login"}>
-                            Back to Login
-                        </Link>
+                    <Button
+                        variant={'link'}
+                        className="w-full font-normal"
+                        size={'sm'}
+                        asChild
+                    >
+                        <Link href={'/login'}>Back to Login</Link>
                     </Button>
                 </CardFooter>
             </Card>

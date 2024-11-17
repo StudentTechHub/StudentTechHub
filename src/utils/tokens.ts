@@ -1,23 +1,24 @@
-"use server";
+'use server'
 
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from 'uuid'
 
-import { getPasswordResetToken, getVerificationToken, prisma } from "@/lib/db";
-import { PasswordResetToken, VerificationToken } from "@prisma/client";
+import { getPasswordResetToken, getVerificationToken, prisma } from '@/lib/db'
+import { PasswordResetToken, VerificationToken } from '@prisma/client'
 
-
-export const generateVerificationToken = async (email: string): Promise<VerificationToken | null> => {
+export const generateVerificationToken = async (
+    email: string
+): Promise<VerificationToken | null> => {
     try {
-        const token = uuidv4();
+        const token = uuidv4()
         const expires = new Date(new Date().getTime() + 3600 * 1000)
 
-        const existingToken = await getVerificationToken({ email });
+        const existingToken = await getVerificationToken({ email })
 
         if (existingToken) {
             await prisma.verificationToken.delete({
                 where: {
-                    token: existingToken.token
-                }
+                    token: existingToken.token,
+                },
             })
         }
 
@@ -25,29 +26,31 @@ export const generateVerificationToken = async (email: string): Promise<Verifica
             data: {
                 identifier: email,
                 token,
-                expires
-            }
+                expires,
+            },
         })
 
-        return verificationToken;
+        return verificationToken
     } catch (e) {
         console.log(e)
-        return null;
+        return null
     }
 }
 
-export const generatePasswordResetToken = async (email: string): Promise<PasswordResetToken | null> => {
+export const generatePasswordResetToken = async (
+    email: string
+): Promise<PasswordResetToken | null> => {
     try {
-        const token = uuidv4();
+        const token = uuidv4()
         const expires = new Date(new Date().getTime() + 3600 * 1000)
 
-        const existingToken = await getPasswordResetToken({ email });
+        const existingToken = await getPasswordResetToken({ email })
 
         if (existingToken) {
             await prisma.passwordResetToken.delete({
                 where: {
-                    token: existingToken.token
-                }
+                    token: existingToken.token,
+                },
             })
         }
 
@@ -55,13 +58,13 @@ export const generatePasswordResetToken = async (email: string): Promise<Passwor
             data: {
                 identifier: email,
                 token,
-                expires
-            }
+                expires,
+            },
         })
 
-        return passwordResetToken;
+        return passwordResetToken
     } catch (e) {
         console.log(e)
-        return null;
+        return null
     }
 }
