@@ -19,6 +19,9 @@ export default {
         },
         extend: {
             colors,
+            boxShadow: {
+                'navbar': '0px 4px 12px 0px rgba(26, 19, 19, 0.25)',
+            },
             borderRadius: {
                 lg: 'var(--radius)',
                 md: 'calc(var(--radius) - 2px)',

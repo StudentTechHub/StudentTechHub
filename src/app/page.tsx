@@ -5,18 +5,19 @@ import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
 import { FaGoogle } from 'react-icons/fa'
+import { Navbar } from '@/components/Navbar'
 
 export default function Home() {
     const { theme, setTheme } = useTheme()
 
     return (
         <>
-            <div className="flex flex-row gap-2">
+            {/* <div className="flex flex-row gap-2">
                 <Button
                     icon={<FaGoogle />}
                     iconPosition="trailing"
                     variant={'primary'}
-                    size={'lg'}
+                    size={'default'}
                 >
                     Primary
                 </Button>
@@ -31,9 +32,9 @@ export default function Home() {
                 <Button variant={'danger'}>Danger</Button>
                 <Button variant={'success'}>Success</Button>
                 <Button variant={'link'}>Link</Button>
-            </div>
+            </div> */}
 
-            <div>
+            <div className='mt-4'>
                 <Button
                     variant="secondary"
                     size="icon"
