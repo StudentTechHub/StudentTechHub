@@ -4,35 +4,22 @@ import * as React from 'react'
 import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
-import { FaGoogle } from 'react-icons/fa'
-import { Navbar } from '@/components/Navbar'
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import { AvatarFallback } from '@radix-ui/react-avatar'
+import { bgGradientFromName, borderColorFromName, generateTailwindGradientClass } from '@/utils/color'
 
 export default function Home() {
     const { theme, setTheme } = useTheme()
 
     return (
         <>
-            {/* <div className="flex flex-row gap-2">
-                <Button
-                    icon={<FaGoogle />}
-                    iconPosition="trailing"
-                    variant={'primary'}
-                    size={'default'}
-                >
-                    Primary
-                </Button>
-                <Button
-                    icon={<FaGoogle />}
-                    iconPosition="trailing"
-                    variant={'secondary'}
-                >
-                    Secondary
-                </Button>
-                <Button variant={'outline'}>Outline</Button>
-                <Button variant={'danger'}>Danger</Button>
-                <Button variant={'success'}>Success</Button>
-                <Button variant={'link'}>Link</Button>
-            </div> */}
+            <Avatar className={`border-[${borderColorFromName('Neeraj')}]`}>
+                <AvatarImage src='https://github.com/LoveKhatri.png' alt="LoveKhatri" />
+                <AvatarFallback className={`${generateTailwindGradientClass(...bgGradientFromName('Love Khatri'))} text-red-500`}>LK</AvatarFallback>
+            </Avatar>
+            <Avatar className={`${generateTailwindGradientClass(...bgGradientFromName('Love Khatri'))}`}>
+                <AvatarFallback>LK</AvatarFallback>
+            </Avatar>
 
             <div className='mt-4'>
                 <Button
