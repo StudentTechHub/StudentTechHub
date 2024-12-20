@@ -4,6 +4,8 @@ import '@/styles/globals.css'
 import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Navbar } from '@/components/Navbar'
+import { SessionProvider } from 'next-auth/react'
+import { Footer } from '@/components/Footer'
 
 const montserrat = Montserrat({
     subsets: ['latin'],
@@ -24,16 +26,19 @@ export default function RootLayout({
             <body
                 className={`${montserrat.className} h-screen w-screen antialiased`}
             >
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="light"
-                    enableSystem
-                    disableTransitionOnChange
-                >
-                    <Navbar />
-                    {children}
-                </ThemeProvider>
-                <Toaster />
+                <SessionProvider>
+                    <ThemeProvider
+                        attribute="class"
+                        defaultTheme="light"
+                        enableSystem
+                        disableTransitionOnChange
+                    >
+                        <Navbar />
+                        {children}
+                        <Footer />
+                    </ThemeProvider>
+                    <Toaster />
+                </SessionProvider>
             </body>
         </html>
     )

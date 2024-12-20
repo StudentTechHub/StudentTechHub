@@ -4,7 +4,7 @@ export const ArrowDown = ({ size = 24, className = '', ...props }) => (
   <svg
     width={size}
     height={size}
-    viewBox="0 0 24 24"
+    viewBox={`0 0 24 24`}
     className={`text-neutral dark:text-neutral ${className}`}
     fill='none'
     stroke='currentColor'

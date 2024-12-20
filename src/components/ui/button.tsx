@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-    'inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-border dark:focus-visible:ring-neutral-950 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+    'inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-border dark:focus-visible:ring-neutral-950 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 transition-colors',
     {
         variants: {
             variant: {
@@ -14,7 +14,7 @@ const buttonVariants = cva(
                     'text-neutral-950 hover:bg-neutral-100 active:bg-neutral-200 disabled:bg-transparent disabled:text-neutral-500 dark:border-neutral-800 dark:text-neutral-950 dark:hover:bg-neutral-100 dark:active:bg-neutral-200',
                 outline:
                     'border border-neutral-950 text-neutral-950 hover:bg-neutral-100 active:bg-neutral-200 dark:border-neutral-950 dark:text-neutral-950 dark:hover:bg-neutral-100 dark:active:bg-neutral-200',
-                link: 'text-neutral-900 underline-offset-4 hover:underline dark:text-neutral-950',
+                link: 'text-neutral-900 underline-offset-4 hover:underline dark:text-neutral-950 py-0',
                 danger: 'bg-danger text-neutral-50 hover:bg-danger/80 active:bg-danger-500 dark:bg-danger dark:text-neutral-50 dark:hover:bg-danger/90',
                 success:
                     'bg-success text-neutral-50 hover:bg-success/80 active:bg-success-500 dark:bg-success dark:text-neutral-50 dark:hover:bg-success/90',
