@@ -1,97 +1,120 @@
-import { FaGoogle, FaLinkedin, FaDiscord, FaGithub } from "react-icons/fa"
-import { Logo } from "./Logo"
-import { Seperator } from "./Seperator"
-import { Button } from "./ui/button"
-import Link from "next/link"
+'use client'
 
-export const Footer = () => {
-    return (
-        <>
-            <div className="fixed  z-10 flex flex-col items-start gap-2.5 m-1 px-[152px] py-4 bottom-0 w-full max-w-[1424px] max-h-80 rounded-[24px] bg-neutral-100 dark:bg-neutral-100">
-                <div key={"main"} className="flex flex-col items-start justify-between w-full h-full max-w-[1120px] gap-10">
-                    <div key={"logo-and-links"} className="flex w-full items-start justify-between">
-                        <Logo size={44} full />
-                        <div className="flex flex-row gap-12">
-                            <div key={"explore"} className="flex flex-col items-start gap-1">
-                                <div className="inline-flex pl-4 items-center font-medium text-sm">
-                                    Explore
-                                </div>
-                                <div className="flex flex-col items-start">
-                                    <Button variant={"link"} size={"sm"} className="h-8" asChild>
-                                        <Link href={`/`}>
-                                            Resources
-                                        </Link>
-                                    </Button>
-                                    <Button variant={"link"} size={"sm"} className="h-8" asChild>
-                                        <Link href={`/`}>
-                                            Leaderboard
-                                        </Link>
-                                    </Button>
-                                    <Button variant={"link"} size={"sm"} className="h-8" asChild>
-                                        <Link href={`/`}>
-                                            Quizzes
-                                        </Link>
-                                    </Button>
-                                    <Button variant={"link"} size={"sm"} className="h-8" asChild>
-                                        <Link href={`/`}>
-                                            Blogs
-                                        </Link>
-                                    </Button>
-                                </div>
-                            </div>
-                            <div key={"important-links"} className="flex flex-col items-start gap-1">
-                                <div className="inline-flex pl-4 items-center font-medium text-sm">
-                                    Important Links
-                                </div>
-                                <div className="flex flex-col items-start">
-                                    <Button variant={"link"} size={"sm"} className="h-8" asChild>
-                                        <Link href={`/`}>
-                                            Privacy Policy
-                                        </Link>
-                                    </Button>
-                                    <Button variant={"link"} size={"sm"} className="h-8" asChild>
-                                        <Link href={`/`}>
-                                            Terms of Service
-                                        </Link>
-                                    </Button>
-                                    <Button variant={"link"} size={"sm"} className="h-8" asChild>
-                                        <Link href={`/`}>
-                                            Cookie Policy
-                                        </Link>
-                                    </Button>
-                                    <Button variant={"link"} size={"sm"} className="h-8" asChild>
-                                        <Link href={`/`}>
-                                            Contact Us
-                                        </Link>
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div key={"copyright-and-socials"} className="flex flex-col w-full items-center gap-2.5">
-                        <Seperator />
-                        <div key={"frame-158"} className="flex items-center justify-between w-full">
-                            <span className="text-neutral-950 dark:text-neutral-950">
-                                &copy; StudentTechHub 2024 | Built for learners by learners
-                            </span>
-                            <div key={"frame-81"} className="flex justify-center items-center">
-                                <Link href={`https://google.com`} className="m-3.5">
-                                    <FaGoogle size={22} />
-                                </Link>
-                                <Link href={`https://google.com`} className="m-3.5">
-                                    <FaLinkedin size={22} />
-                                </Link>
-                                <Link href={`https://google.com`} className="m-3.5">
-                                    <FaGithub size={22} />
-                                </Link>
-                                <Link href={`https://google.com`} className="m-3.5">
-                                    <FaDiscord size={22} />
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+import React from 'react'
+import { Logo } from '@/components/Logo'
+import Image from 'next/image'
+import Link from 'next/link'
+import Separator from '@/components/separator'
+
+export default function Footer() {
+  return (
+    <>
+      <footer className="flex flex-col bg-neutral-100 px-8 py-6 md:px-20 lg:px-40 m-2 rounded-3xl">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start justify-between">
+          <Logo
+            height={45}
+            full={true}
+          />
+          <div className="mt-6 flex flex-row gap-8 sm:mt-0 md:gap-16">
+            <div className="text-center space-y-2 sm:text-left">
+              <p className="text-sm text-neutral-950">Explore</p>
+              <div className="flex flex-col gap-2 text-sm text-neutral-800">
+                <Link
+                  href="/resources"
+                  className="underline"
+                >
+                  Resources
+                </Link>
+                <Link
+                  href="/leaderboard"
+                  className="underline"
+                >
+                  Leaderboard
+                </Link>
+                <Link
+                  href="/quizzes"
+                  className="underline"
+                >
+                  Quizzes
+                </Link>
+                <Link
+                  href="/blogs"
+                  className="underline"
+                >
+                  Blogs
+                </Link>
+              </div>
             </div>
-        </>
-    )
+            <div className="text-center space-y-2 sm:text-left">
+              <p className="text-sm text-neutral-950">
+                Important Links
+              </p>
+              <div className="flex flex-col gap-2 text-sm text-neutral-800">
+                <Link
+                  href="/terms-of-service"
+                  className="underline"
+                >
+                  Terms & Conditions
+                </Link>
+                <Link
+                  href="/privacy-policy"
+                  className="underline"
+                >
+                  Privacy policy
+                </Link>
+                <Link
+                  href="/cookie-policy"
+                  className="underline"
+                >
+                  Cookies
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Separator */}
+        <Separator className='my-8 sm:my-4 dark:invert'/>
+
+        {/* Copy Right and Social*/}
+        <div className="flex flex-row items-center">
+          <div className="-mb-2 flex w-full flex-col-reverse items-center justify-between sm:flex-row">
+            <p className="text-center text-sm text-neutral-950 sm:text-left sm:text-base">
+              &copy; StudentTechHub 2024 | Built for learners by learners
+            </p>
+            <div className="flex -translate-y-4 gap-4 sm:mt-0 sm:translate-y-0 dark:invert">
+              <Image
+                src="/icons/social/Google.svg"
+                width={24}
+                height={24}
+                className="transition-scale cursor-pointer duration-300 ease-in-out hover:scale-110"
+                alt="Google"
+              />
+              <Image
+                src="/icons/social/Linkedin.svg"
+                width={24}
+                height={24}
+                className="transition-scale cursor-pointer duration-300 ease-in-out hover:scale-110"
+                alt="Linkedin"
+              />
+              <Image
+                src="/icons/social/Github.svg"
+                width={24}
+                height={24}
+                className="transition-scale cursor-pointer duration-300 ease-in-out hover:scale-110"
+                alt="Github"
+              />
+              <Image
+                src="/icons/social/Discord.svg"
+                width={24}
+                height={24}
+                className="transition-scale cursor-pointer duration-300 ease-in-out hover:scale-110"
+                alt="Discord"
+              />
+            </div>
+          </div>
+        </div>
+      </footer>
+    </>
+  )
 }

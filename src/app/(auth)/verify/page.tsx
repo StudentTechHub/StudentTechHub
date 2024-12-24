@@ -1,11 +1,11 @@
 import VerificationForm from '@/components/auth/VerificationForm'
 
 const NewVerificationPage = () => {
-    return (
-        <>
-            <VerificationForm />
-        </>
-    )
+  return (
+    <>
+      <VerificationForm />
+    </>
+  )
 }
 
 export default NewVerificationPage

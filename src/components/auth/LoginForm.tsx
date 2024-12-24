@@ -103,9 +103,7 @@ export const LoginForm = () => {
         <CardHeader>
           <div className="flex w-full flex-col items-center justify-center gap-y-4">
             <h1 className={cn('text-3xl font-semibold')}>🔑Auth</h1>
-            <p className="text-muted-foreground text-sm">
-              Welcome Back
-            </p>
+            <p className="text-muted-foreground text-sm">Welcome Back</p>
           </div>
         </CardHeader>
         <CardContent>
@@ -153,9 +151,7 @@ export const LoginForm = () => {
                         asChild
                         className="px-0 font-normal"
                       >
-                        <Link href="/reset-password">
-                          Forgot Password?
-                        </Link>
+                        <Link href="/reset-password">Forgot Password?</Link>
                       </Button>
                       <FormMessage />
                     </FormItem>
@@ -215,9 +211,7 @@ export const LoginForm = () => {
             size={'sm'}
             asChild
           >
-            <Link href={'/signup'}>
-              Don&apos;t have an account?
-            </Link>
+            <Link href={'/signup'}>Don&apos;t have an account?</Link>
           </Button>
         </CardFooter>
       </Card>

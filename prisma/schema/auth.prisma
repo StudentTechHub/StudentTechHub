@@ -1,23 +1,23 @@
 model Account {
-    userId            String  @map("user_id")
-    type              String
-    provider          String
-    providerAccountId String  @map("provider_account_id")
-    refresh_token     String?
-    access_token      String?
-    expires_at        Int?
-    token_type        String?
-    scope             String?
-    id_token          String?
-    session_state     String?
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
 
-    createdAt DateTime @default(now()) @map("created_at")
-    updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@id([provider, providerAccountId])
-    @@map("accounts")
+  @@id([provider, providerAccountId])
+  @@map("accounts")
 }
 
 // ! We are not using sessions
@@ -34,19 +34,19 @@ model Account {
 // }
 
 model VerificationToken {
-    identifier String // Email of the user
-    token      String   @unique
-    expires    DateTime
+  identifier String // Email of the user
+  token      String   @unique
+  expires    DateTime
 
-    @@id([identifier, token])
-    @@map("verification_tokens")
+  @@id([identifier, token])
+  @@map("verification_tokens")
 }
 
 model PasswordResetToken {
-    identifier String // Email of the user
-    token      String   @unique
-    expires    DateTime
+  identifier String // Email of the user
+  token      String   @unique
+  expires    DateTime
 
-    @@id([identifier, token])
-    @@map("password_reset_tokens")
+  @@id([identifier, token])
+  @@map("password_reset_tokens")
 }

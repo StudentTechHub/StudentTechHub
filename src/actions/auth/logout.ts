@@ -7,7 +7,7 @@ import { signOut } from '@/auth'
  * such as updating the user's last login date.
  */
 export const logout = async () => {
-    // Some server stuff;
+  // Some server stuff;
 
-    await signOut()
+  await signOut()
 }

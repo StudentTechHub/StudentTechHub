@@ -1,258 +1,234 @@
-"use client";
+'use client'
 
-import Link from "next/link"
+import React, { useEffect } from 'react'
+import Link from 'next/link'
+import { useCurrentUser } from '@/hooks/useCurrentUser'
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
+import { signOut } from 'next-auth/react'
+import { Logo } from '@/components/Logo'
+import Image from 'next/image'
 
-import { Logo } from "./Logo"
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
-import { cn } from "@/lib/utils";
-import React from "react";
-import { Button } from "./ui/button";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { borderColorFromName, bgGradientFromName } from "@/utils/color";
-import { signOut } from "next-auth/react";
-
-const components: { title: string; href: string; description: string }[] = [
+const components = [
   {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
+    title: 'Alert Dialog',
+    href: '/docs/primitives/alert-dialog',
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      'A modal dialog that interrupts the user with important content and expects a response.',
   },
 ]
 
-const exploreLinks: { title: string; href: string; description: string }[] = [
+const exploreLinks = [
   {
-    title: "Roadmap",
-    href: "/roadmap",
+    title: 'Roadmap',
+    href: '/roadmap',
     description:
-      "A detailed roadmap with various career paths and learning resources.",
+      'A detailed roadmap with various career paths and learning resources.',
   },
   {
-    title: "Courses",
-    href: "/courses",
+    title: 'Courses',
+    href: '/courses',
     description:
-      "A collection of courses and tutorials to help you learn new skills.",
+      'A collection of courses and tutorials to help you learn new skills.',
   },
   {
-    title: "Projects",
-    href: "/projects",
+    title: 'Projects',
+    href: '/projects',
     description:
-      "A collection of projects to help you build your portfolio and learn new skills.",
-  }
+      'A collection of projects to help you build your portfolio and learn new skills.',
+  },
 ]
 
-const blogLinks: { title: string; href: string; description: string }[] = [
+const blogLinks = [
   {
-    title: "Tech Blogs",
-    href: "/blogs/tech",
-    description:
-      "A collection of blogs related to technology and programming.",
+    title: 'Tech Blogs',
+    href: '/blogs/tech',
+    description: 'A collection of blogs related to technology and programming.',
   },
   {
-    title: "Career Blogs",
-    href: "/blogs/career",
+    title: 'Career Blogs',
+    href: '/blogs/career',
     description:
-      "A collection of blogs related to career growth and personal development.",
+      'A collection of blogs related to career growth and personal development.',
   },
   {
-    title: "Life Blogs",
-    href: "/blogs/life",
+    title: 'Life Blogs',
+    href: '/blogs/life',
     description:
-      "A collection of blogs related to life and personal experiences.",
+      'A collection of blogs related to life and personal experiences.',
   },
   {
-    title: "Interview Blogs",
-    href: "/blogs/interview",
-    description:
-      "A collection of blogs related to interviews and placements.",
+    title: 'Interview Blogs',
+    href: '/blogs/interview',
+    description: 'A collection of blogs related to interviews and placements.',
   },
   {
-    title: "Study Blogs",
-    href: "/blogs/study",
+    title: 'Study Blogs',
+    href: '/blogs/study',
     description:
-      "A collection of blogs related to study tips and learning resources.",
-  }
+      'A collection of blogs related to study tips and learning resources.',
+  },
 ]
 
-export const Navbar = () => {
-  const currentUser = useCurrentUser();
-  const borderColor = borderColorFromName(currentUser?.name || "Random User");
-  const gradientColors = bgGradientFromName(currentUser?.name || "Random User");
-  const gradient = `linear-gradient(to top right, ${gradientColors[0]} 0%, ${gradientColors[1]} 50%, ${gradientColors[2]} 100%)`;
+export default function Navbar() {
+  const user = useCurrentUser()
+
+  const navRef = React.useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (navRef.current) {
+        if (window.scrollY > 100) {
+          navRef.current.classList.remove('bg-neutral-50')
+          navRef.current.classList.add('bg-neutral/10')
+        } else {
+          navRef.current.classList.add('bg-neutral-50')
+          navRef.current.classList.remove('bg-neutral/10')
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <>
-      <NavigationMenu className="rounded-full max-w-[1120px] h-16 py-2 px-8 justify-between bg-neutral/1 dark:bg-neutral/1 shadow-[0px_4px_12px_0px_rgba(0,0,0,0.25)] shadow-black-950/25 dark:shadow-white-50/25 backdrop-blur-[80px]">
-        <Link href="/" legacyBehavior passHref>
-          <NavigationMenuLink>
-            <Logo size={36} full />
-          </NavigationMenuLink>
-        </Link>
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <Link href="/" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Home
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger className="">
-              Explore
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="flex flex-col md:w-[150px] lg:w-[150px] bg-neutral-50 dark:bg-neutral-50 text-neutral-950 dark:text-neutral-950">
-                {exploreLinks.map((element, index) => {
-                  return (
-                    <ListItem href={element.href} title={element.title} key={index}>
-                      {element.description}
-                    </ListItem>
-                  )
-                })}
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>
-              Quizzes
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                {components.map((component) => (
-                  <ListItem
-                    key={component.title}
-                    title={component.title}
-                    href={component.href}
-                  >
-                    {component.description}
-                  </ListItem>
-                ))}
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>
-              Blogs
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                {blogLinks.map((element, index) => {
-                  return (
-                    <ListItem
-                      href={element.href}
-                      title={element.title}
-                      key={index}
-                    >
-                      {element.description}
-                    </ListItem>
-                  )
-                })}
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link href="/docs" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                About
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-        </NavigationMenuList>
+    <nav ref={navRef} className="fixed left-1/2 z-10 mx-auto mt-2 max-h-16 w-[calc(100%-20rem)] -translate-x-1/2 rounded-full bg-neutral-50 shadow-[0px_4px_12px_0px_rgba(0,0,0,0.25)] shadow-black-950/25 dark:shadow-neutral-50 backdrop-blur-super transition-colors duration-300 ease-in-out">
+      <div className="flex items-center justify-between px-8 py-2">
+        {/* Logo */}
+        <Logo
+          full={true}
+          height={40}
+        />
 
-        {currentUser ? (
-          <>
-            <NavigationMenuList>
-              <div className="px-4 py-2.5">
-                <span>Hi, </span>
-                <span className="text-primary-600">{currentUser.name}</span>
+        {/* Navigation Links */}
+        <div className="hidden space-x-6 text-sm font-medium text-neutral-950 md:flex">
+          <Link href="/">Home</Link>
+
+          {/* Explore Dropdown */}
+          <div className="group relative">
+            <button className="flex items-center space-x-2 focus:outline-none">
+              <span>Explore</span>
+              <Image
+                src={'./svg/arrowDown.svg'}
+                alt={'DownArrow'}
+                height={24}
+                width={24}
+                quality={100}
+                className="h-5 w-5 transform transition-transform duration-200 group-hover:rotate-180 dark:invert"
+              />
+            </button>
+            <div className="absolute left-0 w-64 origin-top-left scale-0 rounded-md transition duration-300 ease-in-out group-hover:scale-100">
+              <div className="mt-6 space-y-2 rounded-md bg-white p-4 shadow-md dark:bg-neutral-50">
+                {exploreLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="block rounded-md px-4 py-2 hover:bg-slate-200 dark:hover:bg-neutral-100"
+                  >
+                    {link.title}
+                    {link.description && (
+                      <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                        {link.description}
+                      </p>
+                    )}
+                  </Link>
+                ))}
               </div>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="p-0 cursor-pointer">
-                  <Avatar className='text-white hover:bg-transparent' style={{ borderColor: borderColor, background: gradient }}>
-                    <AvatarImage
-                      src={currentUser.image || "https://pgvfeftlwazlnxukszss.supabase.co/storage/v1/object/public/avatars/09.png"}
-                      alt={currentUser.name || "Unknown User"}
-                    />
-                    <AvatarFallback>{currentUser.name?.split(" ").map((el) => el.charAt(0)).join("").toUpperCase().substring(0, 2)}</AvatarFallback>
-                  </Avatar>
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                    <li>
-                      <Button variant={"secondary"} size={"sm"} asChild>
-                        <Link href="/profile">
-                          Profile
-                        </Link>
-                      </Button>
-                    </li>
-                    <li>
-                      <Button variant={"secondary"} size={"sm"}
-                        onClick={() => {
-                          signOut();
-                        }}>
-                        Logout
-                      </Button>
-                    </li>
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </>
-        ) : (
-          <>
-            <NavigationMenuList>
-              <Button variant={"secondary"} size={"sm"} asChild>
-                <Link href="/login">
-                  Login
+            </div>
+          </div>
+
+          {/* Quizzes */}
+          <Link href="/quizzes">Quizzes</Link>
+
+          {/* Blogs Dropdown */}
+          <div className="group relative">
+            <button className="flex items-center space-x-2 focus:outline-none">
+              <span>Blogs</span>
+              <Image
+                src={'./svg/arrowDown.svg'}
+                alt={'DownArrow'}
+                height={24}
+                width={24}
+                quality={100}
+                className="h-5 w-5 transform transition-transform duration-200 group-hover:rotate-180 dark:invert"
+              />
+            </button>
+            <div className="absolute left-0 w-64 origin-top-left scale-0 rounded-md transition duration-300 ease-in-out group-hover:scale-100">
+              <div className="mt-6 space-y-2 rounded-md bg-white p-4 shadow-md dark:bg-neutral-50">
+                {blogLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="block rounded-md px-4 py-2 hover:bg-slate-200 dark:hover:bg-neutral-100"
+                  >
+                    {link.title}
+                    {link.description && (
+                      <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                        {link.description}
+                      </p>
+                    )}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <Link href="/about-us">About Us</Link>
+        </div>
+
+        {/* Authentication Buttons or User Info */}
+        <div className="flex items-center space-x-4 text-neutral-950">
+          {user ? (
+            <div className="flex items-center space-x-3">
+              <span className="text-sm font-medium">
+                Hi,{' '}
+                <Link
+                  href="/profile"
+                  className="text-primary-600"
+                >
+                  {user.name}
                 </Link>
+              </span>
+              <Avatar className="h-8 w-8">
+                <AvatarImage
+                  src={user.image || ''}
+                  alt={user.name || 'User'}
+                />
+                <AvatarFallback>{user.name?.charAt(0) || '?'}</AvatarFallback>
+              </Avatar>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => signOut()}
+              >
+                Logout
               </Button>
-              <Button variant={"primary"} size={"sm"} asChild>
-                <Link href="/signup">
-                  Signup
-                </Link>
+            </div>
+          ) : (
+            <div className="flex space-x-4">
+              <Button
+                variant="outline"
+                size="sm"
+                asChild
+              >
+                <Link href="/login">Login</Link>
               </Button>
-            </NavigationMenuList>
-          </>
-        )}
-        {/* <NavigationMenuViewport /> */}
-      </NavigationMenu>
-    </>
+              <Button
+                size="sm"
+                asChild
+              >
+                <Link href="/signup">Signup</Link>
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Mobile Navigation */}
+      <div className="flex items-center justify-between px-6 py-4 md:hidden">
+        {/* Add a hamburger menu or drawer for mobile */}
+      </div>
+    </nav>
   )
 }
-
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-100 active:bg-neutral-200 disabled:bg-transparent dark:hover:bg-neutral-100 dark:active:bg-neutral-200 dark:text-neutral-950",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">
-            {title}
-          </div>
-          <p className="line-clamp-2 text-sm leading-snug text-neutral-950 dark:text-neutral-950">
-            {children}
-          </p>
-        </a>
-      </NavigationMenuLink>
-    </li>
-  )
-})
-ListItem.displayName = "ListItem"
