@@ -19,6 +19,11 @@ export default {
     },
     extend: {
       colors,
+      fontFamily: {
+        Montserrat: ['Montserrat', 'sans-serif'],
+        Roboto: ['Roboto', 'sans-serif'],
+        CaviarDreams: ['Caviar Dreams', 'sans-serif'],
+      },
       backgroundImage: {
         'hero-pattern': 'url(/svg/dotMatrix.svg)',
       },
@@ -78,10 +83,5 @@ export default {
       auto: 'auto',
     },
   },
-  // safelist: [
-  //     {
-  //         pattern: /bg-gradient-to-r from-\[\#([0-9a-fA-F]{6})\] via-\[\#([0-9a-fA-F]{6})\] to-\[\#([0-9a-fA-F]{6})\]/,
-  //     },
-  // ],
   plugins: [tailwindcssAnimate, typography],
 } satisfies Config

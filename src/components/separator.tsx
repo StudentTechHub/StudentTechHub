@@ -19,7 +19,7 @@ export const Separator: React.FC<SeparatorProps> = ({ text, className }) => {
       </div>
 
       {text && (
-        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform px-4 dark:invert bg-neutral-100 text-center text-black dark:text-white">
+        <span className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform px-4 dark:invert bg-neutral-50 text-center text-black dark:text-white`}>
           {text}
         </span>
       )}

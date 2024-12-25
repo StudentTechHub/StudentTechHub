@@ -1,14 +1,7 @@
-import { Montserrat } from 'next/font/google'
 import '@/styles/globals.css'
 import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from '@/components/theme-provider'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
 import { SessionProvider } from 'next-auth/react'
-
-const montserrat = Montserrat({
-  subsets: ['latin'],
-})
 
 export const metadata = {
   title: 'StudentTechHub',
@@ -35,17 +28,13 @@ export default function RootLayout({
           sizes="any"
         />
       </head>
-      <body
-        className={`${montserrat.className} bg-neutral-50 antialiased`}
-      >
+      <body className="bg-neutral-50 antialiased">
         <SessionProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="light"
           >
-            <Navbar />
             {children}
-            <Footer />
           </ThemeProvider>
           <Toaster />
         </SessionProvider>

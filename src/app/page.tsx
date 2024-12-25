@@ -4,10 +4,13 @@ import { ThemeButton } from '@/components/ThemeButton'
 import * as React from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
 export default function Home() {
   return (
     <>
+      <Navbar />
       <ThemeButton />
       <div className="h-screen bg-hero-pattern bg-cover dark:invert">
         <div className="absolute -z-10 h-full w-full">
@@ -60,6 +63,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   )
 }

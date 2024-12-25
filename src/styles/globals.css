@@ -3,8 +3,37 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Caviar Dreams';
+  src:
+    url('/fonts/caviar_dreams/CaviarDreams_Bold.ttf') format('truetype'),
+    url('/fonts/caviar_dreams/CaviarDreams.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat/Montserrat-VariableFont_wght.ttf')
+    format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src:
+    url('/fonts/roboto/Roboto-Regular.ttf') format('truetype'),
+    url('/fonts/roboto/Roboto-Bold.ttf') format('truetype'),
+    url('/fonts/roboto/Roboto-Medium.ttf') format('truetype'),
+    url('/fonts/roboto/Roboto-Light.ttf') format('truetype'),
+    url('/fonts/roboto/Roboto-Thin.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Caviar Dreams', 'Montserrat', 'Roboto', sans-serif;
 }
 
 @layer base {
