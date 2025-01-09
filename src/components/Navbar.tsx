@@ -103,12 +103,12 @@ export default function Navbar() {
 
         {/* Navigation Links */}
         <div className="hidden space-x-6 text-sm font-medium text-neutral-950 md:flex">
-          <Link href="/">Home</Link>
+          <Link href="/" className='text-neutral-950'>Home</Link>
 
           {/* Explore Dropdown */}
           <div className="group relative">
             <button className="flex items-center space-x-2 focus:outline-none">
-              <span>Explore</span>
+              <span className='text-neutral-950'>Explore</span>
               <Image
                 src={'./svg/arrowDown.svg'}
                 alt={'DownArrow'}
@@ -139,12 +139,12 @@ export default function Navbar() {
           </div>
 
           {/* Quizzes */}
-          <Link href="/quizzes">Quizzes</Link>
+          <Link href="/quizzes" className='text-neutral-950'>Quizzes</Link>
 
           {/* Blogs Dropdown */}
           <div className="group relative">
             <button className="flex items-center space-x-2 focus:outline-none">
-              <span>Blogs</span>
+              <span className='text-neutral-950'>Blogs</span>
               <Image
                 src={'./svg/arrowDown.svg'}
                 alt={'DownArrow'}
@@ -174,7 +174,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          <Link href="/about-us">About Us</Link>
+          <Link href="/about-us" className='text-neutral-950'>About Us</Link>
         </div>
 
         {/* Authentication Buttons or User Info */}

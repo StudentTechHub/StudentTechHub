@@ -68,6 +68,12 @@ export default function Footer() {
                 >
                   Cookies
                 </Link>
+                <Link
+                  href="/contact"
+                  className="underline"
+                >
+                  Contact
+                </Link>
               </div>
             </div>
           </div>
