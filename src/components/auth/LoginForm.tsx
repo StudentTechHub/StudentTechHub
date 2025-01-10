@@ -100,16 +100,16 @@ export const LoginForm = () => {
   return (
     <>
       <div className="flex h-screen w-full flex-col items-center justify-center gap-y-3">
-        <div className="rounded-full bg-neutral-50">
+        <Link href={"/"} className="rounded-full bg-neutral-50">
           <Logo
             height={45}
             full={true}
           />
-        </div>
-        <div className="flex h-auto w-auto justify-between gap-12 rounded-3xl bg-neutral-50 p-12 shadow-navbar">
-          <div className="font-caviar-dreams">
-            <p className="text-5xl font-bold tracking-wide">
-              Ready to <span className="text-primary">BUILD</span> agian?
+        </Link>
+        <div className="flex h-auto w-auto justify-between gap-12 rounded-3xl bg-neutral-50 p-12 shadow-navbar dark:shadow-neutral-100">
+          <div className="font-CaviarDreams">
+            <p className="text-5xl font-bold tracking-wide leading-tight">
+              Ready to <span className="text-primary">BUILD</span> again?
             </p>
             <p className="text-xl text-neutral-700">
               let&apos;s make it happen

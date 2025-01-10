@@ -34,7 +34,7 @@ const PolkaDots: React.FC = () => {
     const updateOpacity = () => {
       dots.forEach((dot) => {
         if (Math.random() > 0.8) {
-          dot.style.opacity = (Math.random() * 0.4 + 0.1).toFixed(2)
+          dot.style.opacity = (Math.random() * 0.8 + 0.1).toFixed(2)
         }
       })
     }
@@ -48,7 +48,7 @@ const PolkaDots: React.FC = () => {
     return Array.from({ length: dotCount }, (_, i) => (
       <div
         key={i}
-        className="h-1.5 w-1.5 rounded-full bg-neutral opacity-0 transition-opacity duration-500 ease-linear"
+        className="h-1.5 w-1.5 rounded-full bg-neutral opacity-0  transition-opacity duration-500 ease-linear"
       ></div>
     ))
   }
@@ -56,7 +56,7 @@ const PolkaDots: React.FC = () => {
   return (
     <div
       ref={gridRef}
-      className="grid h-screen w-full grid-cols-[repeat(auto-fit,_16px)] gap-3 overflow-hidden bg-neutral-50"
+      className="grid h-screen w-full grid-cols-[repeat(auto-fit,_16px)] gap-3 opacity-30 overflow-hidden bg-neutral-50"
     >
       {createDots()}
     </div>
