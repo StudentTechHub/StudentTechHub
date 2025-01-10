@@ -1,7 +1,7 @@
 'use client'
 
-import { ThemeButton } from '@/components/ThemeButton'
 import * as React from 'react'
+import { ThemeButton } from '@/components/ThemeButton'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import Navbar from '@/components/Navbar'
@@ -28,21 +28,21 @@ export default function Home() {
         </div>
         <div className="flex h-full w-full items-center justify-center dark:invert">
           <div className="w-9/10 sm:w-7/10 relative z-[5] flex flex-col items-center justify-center gap-2 px-4 text-center md:w-3/5">
-            <span className="text-xl tracking-wide font-Roboto font-bold text-primary-600 md:text-2xl lg:text-3xl">
+            <span className="font-Roboto text-xl font-bold tracking-wide text-primary-600 md:text-2xl lg:text-3xl">
               From Curiosity to Mastery
             </span>
-            <span className="text-4xl font-Roboto tracking-wide font-bold text-neutral md:text-6xl xl:text-7xl">
+            <span className="font-Roboto text-4xl font-bold tracking-wide text-neutral md:text-6xl xl:text-7xl">
               Learn, Grow, and Build Together
             </span>
-            <span className="text-base font-Roboto tracking-wide text-neutral-800 sm:text-lg md:text-xl">
+            <span className="font-Roboto text-base tracking-wide text-neutral-800 sm:text-lg md:text-xl">
               Join a community where collaboration fules creativity, and
               success.
             </span>
-            <div className="mt-4 font-Montserrat flex flex-row gap-2">
+            <div className="mt-4 flex flex-row gap-2 font-Montserrat">
               <Button
                 variant={'outline'}
                 size={'lg'}
-                className="flex items-center justify-center gap-2 text-base text-secondary sm:text-lg md:text-xl"
+                className="flex items-center justify-center gap-2 bg-neutral-50 text-base text-secondary sm:text-lg md:text-xl"
               >
                 <span className="tracking-tight text-neutral-950">Explore</span>
                 <Image
@@ -56,6 +56,9 @@ export default function Home() {
               <Button
                 size={'lg'}
                 className="bg-primary-500 text-base sm:text-lg md:text-xl"
+                onClick={() => {
+                  window.location.href = '/signup'
+                }}
               >
                 <span className="tracking-tight">Join Us</span>
               </Button>
