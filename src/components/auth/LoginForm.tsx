@@ -106,7 +106,7 @@ export const LoginForm = () => {
             full={true}
           />
         </Link>
-        <div className="flex h-auto w-auto justify-between gap-12 rounded-3xl bg-neutral-50 p-12 shadow-navbar dark:shadow-neutral-100">
+        <div className="flex max-w-5xl w-full justify-between gap-12 rounded-3xl bg-neutral-50 p-12 shadow-navbar dark:shadow-neutral-100">
           <div className="font-CaviarDreams">
             <p className="text-5xl font-bold tracking-wide leading-tight">
               Ready to <span className="text-primary">BUILD</span> again?

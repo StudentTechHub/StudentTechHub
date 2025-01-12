@@ -7,16 +7,16 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useTransition } from 'react'
-import { FaDiscord, FaGithub, FaLinkedin, FaGoogle } from 'react-icons/fa'
 
-import { cn } from '@/lib/utils'
+import { Logo } from '@/components/Logo'
+import Image from 'next/image'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { signup } from '@/actions/auth/signup'
 import { useToast } from '@/hooks/use-toast'
 import { SignUpSchema } from '@/types/schemas'
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import Separator from '@/components/separator'
 import {
   Form,
   FormControl,
@@ -54,6 +54,7 @@ export const SignUpForm = () => {
     resolver: zodResolver(SignUpSchema),
     defaultValues: {
       name: '',
+      username: '',
       email: '',
       password: '',
     },
@@ -98,132 +99,232 @@ export const SignUpForm = () => {
 
   return (
     <>
-      <Card className="w-[400px] shadow-md">
-        <CardHeader>
-          <div className="flex w-full flex-col items-center justify-center gap-y-4">
-            <h1 className={cn('text-3xl font-semibold')}>🔑Auth</h1>
-            <p className="text-muted-foreground text-sm">Create an account</p>
+      <div className="flex h-screen w-full flex-col items-center justify-center gap-y-3">
+        <Link
+          href={'/'}
+          className="rounded-full bg-neutral-50"
+        >
+          <Logo
+            height={45}
+            full={true}
+          />
+        </Link>
+        <div className="flex w-full max-w-5xl justify-between gap-12 rounded-3xl bg-neutral-50 p-12 shadow-navbar dark:shadow-neutral-100">
+          <div className="relative flex flex-col justify-between font-CaviarDreams">
+            <div>
+              <p className="text-5xl font-bold leading-tight tracking-wide">
+                Build Something <span className="text-primary">AMAZING</span>
+              </p>
+              <p className="text-xl text-neutral-700">
+                your next chapter starts here!
+              </p>
+            </div>
+            {/* Floating Icons */}
+            <div className='absolute hidden md:block'>
+              <Image src={'./icons/tools/figma.svg'} alt={'figma'} className='h-40 w-32 transform translate-x-60 translate-y-48' height={80} width={80} quality={100}/>
+              <Image src={'./icons/tools/github.svg'} alt={'github'} className='h-24 w-24 transform translate-x-32 translate-y-32' height={80} width={80} quality={100}/>
+              <Image src={'./icons/tools/vscode.svg'} alt={'vscode'} className='h-24 w-24 transform translate-x-44 translate-y-36' height={80} width={80} quality={100}/>
+            </div>
           </div>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-6"
-            >
-              <div className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Name</FormLabel>
-                      <FormControl>
-                        <Input
-                          disabled={isPending}
-                          {...field}
-                          type="text"
-                          placeholder="John Doe"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          disabled={isPending}
-                          {...field}
-                          type="email"
-                          placeholder="johndoe@mail.com"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <Input
-                          disabled={isPending}
-                          {...field}
-                          type="password"
-                          placeholder="********"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+          <div className="w-full max-w-96">
+            <div>
+              <div className="flex w-full items-center justify-center gap-x-4">
+                <Button
+                  size={'icon'}
+                  variant={'outline'}
+                  onClick={() => handleSocialLogin('google')}
+                >
+                  <Image
+                    src={'./icons/social/Google.svg'}
+                    alt="google"
+                    height={24}
+                    width={24}
+                    quality={100}
+                    className="dark:invert"
+                  />
+                </Button>
+                <Button
+                  size={'icon'}
+                  variant={'outline'}
+                  onClick={() => handleSocialLogin('github')}
+                >
+                  <Image
+                    src={'./icons/social/GitHub.svg'}
+                    alt="GitHub"
+                    height={24}
+                    width={24}
+                    quality={100}
+                    className="dark:invert"
+                  />
+                </Button>
+                <Button
+                  size={'icon'}
+                  variant={'outline'}
+                  onClick={() => handleSocialLogin('linkedin')}
+                >
+                  <Image
+                    src={'./icons/social/Linkedin.svg'}
+                    alt="Linkedin"
+                    height={24}
+                    width={24}
+                    quality={100}
+                    className="dark:invert"
+                  />
+                </Button>
+                <Button
+                  size={'icon'}
+                  variant={'outline'}
+                  onClick={() => handleSocialLogin('discord')}
+                >
+                  <Image
+                    src={'./icons/social/Discord.svg'}
+                    alt="Discord"
+                    height={24}
+                    width={24}
+                    quality={100}
+                    className="dark:invert"
+                  />
+                </Button>
               </div>
-              <Button
-                disabled={isPending}
-                type="submit"
-                className="w-full"
-              >
-                Create an account
-              </Button>
-            </form>
-          </Form>
-        </CardContent>
-        <CardFooter>
-          <div className="flex w-full items-center gap-x-2">
-            <Button
-              size={'lg'}
-              className="w-full"
-              variant={'outline'}
-              onClick={() => handleSocialLogin('google')}
-            >
-              <FaGoogle />
-            </Button>
-            <Button
-              size={'lg'}
-              className="w-full"
-              variant={'outline'}
-              onClick={() => handleSocialLogin('github')}
-            >
-              <FaGithub />
-            </Button>
-            <Button
-              size={'lg'}
-              className="w-full"
-              variant={'outline'}
-              onClick={() => handleSocialLogin('linkedin')}
-            >
-              <FaLinkedin />
-            </Button>
-            <Button
-              size={'lg'}
-              className="w-full"
-              variant={'outline'}
-              onClick={() => handleSocialLogin('discord')}
-            >
-              <FaDiscord />
-            </Button>
+            </div>
+            <Separator
+              text="OR"
+              className="my-6 dark:invert"
+            />
+            <div className="font-Montserrat">
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-6"
+                >
+                  <div className="space-y-4">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <div className="flex space-x-4">
+                          <FormItem>
+                            <FormLabel>First Name</FormLabel>
+                            <FormControl>
+                              <Input
+                                disabled={isPending}
+                                {...field}
+                                type="text"
+                                placeholder="John"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                          <FormItem>
+                            <FormLabel>Last Name</FormLabel>
+                            <FormControl>
+                              <Input
+                                disabled={isPending}
+                                {...field}
+                                type="text"
+                                placeholder="Doe"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        </div>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="username"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Username</FormLabel>
+                          <FormControl>
+                            <Input
+                              disabled={isPending}
+                              {...field}
+                              type="text"
+                              placeholder="johndoe"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input
+                              disabled={isPending}
+                              {...field}
+                              type="email"
+                              placeholder="johndoe@mail.com"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="password"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Password</FormLabel>
+                          <FormControl>
+                            <Input
+                              disabled={isPending}
+                              {...field}
+                              type="password"
+                              placeholder="********"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <Button
+                    disabled={isPending}
+                    type="submit"
+                    className="w-full"
+                  >
+                    Create an account
+                  </Button>
+                </form>
+              </Form>
+              <div className="font-Roboto">
+                <p className="pt-2 text-center text-neutral-950">
+                  Already got an account?{' '}
+                  <Link
+                    href={'/login'}
+                    className="text-primary-600 underline"
+                  >
+                    Log in
+                  </Link>
+                </p>
+              </div>
+            </div>
           </div>
-        </CardFooter>
-        <CardFooter>
-          <Button
-            variant={'link'}
-            className="w-full font-normal"
-            size={'sm'}
-            asChild
+        </div>
+        <p className="text-center font-Roboto text-neutral-950 backdrop-blur-sm">
+          By creating an account you agree to our{' '}
+          <Link
+            href="/tos"
+            className="text-primary-600 underline"
           >
-            <Link href={'/login'}>Already have an account?</Link>
-          </Button>
-        </CardFooter>
-      </Card>
+            Terms of Service
+          </Link>{' '}
+          and{' '}
+          <Link
+            href="/pp"
+            className="text-primary-600 underline"
+          >
+            Privacy Policy
+          </Link>
+        </p>
+      </div>
     </>
   )
 }
