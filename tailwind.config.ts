@@ -68,6 +68,22 @@ export default {
         34: '8.5rem',
         22: '5.5rem',
       },
+
+      // Emoji animation
+      animation: {
+        up: 'moveUp linear infinite',
+        down: 'moveDown linear infinite',
+      },
+      keyframes: {
+        moveUp: {
+          '0%': { top: '100%' },
+          '100%': { top: '-50px' },
+        },
+        moveDown: {
+          '0%': { top: '-50px' },
+          '100%': { top: '100%' },
+        },
+      },
     },
     zIndex: {
       0: '0',
