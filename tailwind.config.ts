@@ -29,6 +29,9 @@ export default {
       },
       boxShadow: {
         navbar: '0px 4px 12px 0px rgba(26, 19, 19, 0.25)',
+        navbarDark: '0px 4px 12px 0px rgba(255, 255, 255, 0.25)',
+        card: '0px 0px 15px 0px rgba(26, 19, 19, 0.25)',
+        cardDark: '0px 0px 15px 0px rgba(255, 255, 255, 0.25)',
       },
       borderRadius: {
         lg: 'var(--radius)',

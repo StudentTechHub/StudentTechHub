@@ -93,7 +93,7 @@ export default function Navbar() {
   }, [])
 
   return (
-    <nav ref={navRef} className="fixed left-1/2 z-10 mx-auto mt-2 max-h-16 w-[calc(100%-20rem)] -translate-x-1/2 rounded-full bg-neutral-50 shadow-navbar shadow-black-950/25 dark:shadow-neutral-50 backdrop-blur-super transition-colors duration-300 ease-in-out">
+    <nav ref={navRef} className="fixed left-1/2 z-10 mx-auto mt-2 max-h-16 w-[calc(100%-20rem)] -translate-x-1/2 rounded-full bg-neutral-50 shadow-navbar dark:shadow-navbarDark backdrop-blur-super transition-colors duration-300 ease-in-out">
       <div className="flex items-center justify-between px-8 py-2">
         {/* Logo */}
         <Logo
