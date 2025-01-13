@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useTransition } from 'react'
+import { useState, useEffect, useTransition } from 'react'
 import { Logo } from '@/components/Logo'
 
 import { login } from '@/actions/auth/login'
@@ -20,7 +20,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form'
 import Separator from '../separator'
@@ -64,6 +63,12 @@ export const LoginForm = () => {
     signIn(provider, { callbackUrl: callbackUrl || DEFAULT_LOGIN_REDIRECT })
   }
 
+  const [isPasswordVisible, setPasswordVisible] = useState(false)
+
+  const toggleVisibility = () => {
+    setPasswordVisible((prev) => !prev)
+  }
+
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     startTransition(() => {
       login(values, callbackUrl)
@@ -100,15 +105,18 @@ export const LoginForm = () => {
   return (
     <>
       <div className="flex h-screen w-full flex-col items-center justify-center gap-y-3">
-        <Link href={"/"} className="rounded-full bg-neutral-50">
+        <Link
+          href={'/'}
+          className="rounded-full bg-neutral-50"
+        >
           <Logo
             height={45}
             full={true}
           />
         </Link>
-        <div className="flex max-w-5xl w-full justify-between gap-12 rounded-3xl bg-neutral-50 p-12 shadow-navbar dark:shadow-neutral-100">
+        <div className="flex w-full max-w-5xl justify-between gap-12 rounded-3xl bg-neutral-50 p-12 shadow-navbar dark:shadow-neutral-100">
           <div className="font-CaviarDreams">
-            <p className="text-5xl font-bold tracking-wide leading-tight">
+            <p className="text-5xl font-bold leading-tight tracking-wide">
               Ready to <span className="text-primary">BUILD</span> again?
             </p>
             <p className="text-xl text-neutral-700">
@@ -180,7 +188,7 @@ export const LoginForm = () => {
               text="OR"
               className="my-6 dark:invert"
             />
-            <div className='font-Montserrat'>
+            <div className="font-Montserrat">
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
@@ -192,13 +200,22 @@ export const LoginForm = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Username or Email</FormLabel>
                           <FormControl>
                             <Input
+                              label="Username or Email"
                               disabled={isPending}
                               {...field}
                               type="email"
-                              placeholder="johndoe@mail.com"
+                              placeholder="johndoe"
+                              leadingIcon={
+                                <Image
+                                  src="/icons/form/Mention.svg"
+                                  alt="mail"
+                                  height={24}
+                                  width={24}
+                                  quality={100}
+                                />
+                              }
                             />
                           </FormControl>
                           <FormMessage />
@@ -210,19 +227,42 @@ export const LoginForm = () => {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Password</FormLabel>
                           <FormControl>
                             <Input
                               disabled={isPending}
                               {...field}
-                              type="password"
-                              placeholder="••••••••"
+                              label="Password"
+                              type={isPasswordVisible ? 'text' : 'password'}
+                              placeholder="●●●●●●●●"
+                              leadingIcon={
+                                <Image
+                                  src="/icons/form/Key.svg"
+                                  alt="user"
+                                  height={24}
+                                  width={24}
+                                  quality={100}
+                                />
+                              }
+                              trailingIcon={
+                                <Image
+                                  src={
+                                    isPasswordVisible
+                                      ? '/icons/form/EyeOpen.svg'
+                                      : '/icons/form/EyeClosed.svg'
+                                  }
+                                  alt="toggle visibility"
+                                  height={24}
+                                  width={24}
+                                  quality={100}
+                                />
+                              }
+                              onTrailingIconClick={toggleVisibility}
                             />
                           </FormControl>
-                          <p className="px-0 text-primary-600 text-sm font-Roboto font-normal">
+                          <FormMessage />
+                          <p className="px-0 font-Roboto text-sm font-normal text-primary-600">
                             <Link href="/reset-password">Forgot Password?</Link>
                           </p>
-                          <FormMessage />
                         </FormItem>
                       )}
                     />

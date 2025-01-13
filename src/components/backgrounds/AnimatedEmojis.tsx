@@ -28,7 +28,7 @@ const AnimatedEmojis: React.FC = () => {
   }, [])
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <div className="relative h-full w-full overflow-hidden">
       {Array.from({ length: numLines - 1 }).map((_, index) => (
         <div
           key={index + 1}

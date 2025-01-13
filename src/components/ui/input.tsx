@@ -1,19 +1,65 @@
 import * as React from 'react'
-
 import { cn } from '@/lib/utils'
+import { Label } from '@radix-ui/react-label'
 
-const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(
-  ({ className, type, ...props }, ref) => {
+export interface InputProps {
+  label?: string
+  placeholder?: string
+  className?: string
+  leadingIcon?: React.ReactNode
+  trailingIcon?: React.ReactNode
+  type?: 'text' | 'password' | 'email';
+  onTrailingIconClick?: () => void
+}
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      className,
+      label,
+      placeholder,
+      leadingIcon,
+      trailingIcon,
+      onTrailingIconClick,
+      type = 'text',
+      ...props
+    },
+    ref
+  ) => {
     return (
-      <input
-        type={type}
-        className={cn(
-          'flex h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-base ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-neutral-950 placeholder:text-neutral-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:ring-offset-neutral-950 dark:file:text-neutral-50 dark:placeholder:text-neutral-400 dark:focus-visible:ring-neutral-300 md:text-sm',
-          className
+      <div className={cn('flex flex-col')}>
+        {label && (
+          <Label className="px-5 mb-1 font-Montserrat text-sm text-neutral">
+            {label}
+          </Label>
         )}
-        ref={ref}
-        {...props}
-      />
+        <div className="relative flex items-center">
+          {leadingIcon && (
+            <span className="absolute left-0 px-5 text-neutral-500 dark:text-neutral-400">
+              {leadingIcon}
+            </span>
+          )}
+          <input
+            ref={ref}
+            type={type}
+            placeholder={placeholder}
+            className={cn(
+              `${className} placeholder:text-gray/60 flex h-14 w-full rounded-full border-2 font-Montserrat border-neutral-200 bg-transparent px-6 py-2 pr-14 text-base outline-none hover:border-secondary focus:border-secondary focus:shadow-md transition-all duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50`,
+              leadingIcon ? 'pl-14' : '',
+              trailingIcon ? 'pr-14' : ''
+            )}
+            {...props}
+          />
+          {trailingIcon && (
+            <span
+              className="absolute right-0 px-5 cursor-pointer text-neutral-500 dark:text-neutral-400"
+              onClick={onTrailingIconClick}
+            >
+              {trailingIcon}
+            </span>
+          )}
+        </div>
+      </div>
     )
   }
 )

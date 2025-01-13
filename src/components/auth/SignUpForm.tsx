@@ -6,7 +6,7 @@ import { signIn } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useTransition } from 'react'
+import { useState, useEffect, useTransition } from 'react'
 
 import { Logo } from '@/components/Logo'
 import Image from 'next/image'
@@ -22,7 +22,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form'
 
@@ -64,6 +63,12 @@ export const SignUpForm = () => {
     provider: 'google' | 'github' | 'discord' | 'linkedin'
   ) => {
     signIn(provider, { callbackUrl: callbackUrl || DEFAULT_LOGIN_REDIRECT })
+  }
+
+  const [isPasswordVisible, setPasswordVisible] = useState(false)
+
+  const toggleVisibility = () => {
+    setPasswordVisible((prev) => !prev)
   }
 
   const onSubmit = (values: z.infer<typeof SignUpSchema>) => {
@@ -120,10 +125,31 @@ export const SignUpForm = () => {
               </p>
             </div>
             {/* Floating Icons */}
-            <div className='absolute hidden md:block'>
-              <Image src={'./icons/tools/figma.svg'} alt={'figma'} className='h-40 w-32 transform translate-x-60 translate-y-48' height={80} width={80} quality={100}/>
-              <Image src={'./icons/tools/github.svg'} alt={'github'} className='h-24 w-24 transform translate-x-32 translate-y-32' height={80} width={80} quality={100}/>
-              <Image src={'./icons/tools/vscode.svg'} alt={'vscode'} className='h-24 w-24 transform translate-x-44 translate-y-36' height={80} width={80} quality={100}/>
+            <div className="absolute hidden md:block">
+              <Image
+                src={'./icons/tools/figma.svg'}
+                alt={'figma'}
+                className="h-40 w-32 translate-x-60 translate-y-48 transform"
+                height={80}
+                width={80}
+                quality={100}
+              />
+              <Image
+                src={'./icons/tools/github.svg'}
+                alt={'github'}
+                className="h-24 w-24 translate-x-32 translate-y-32 transform"
+                height={80}
+                width={80}
+                quality={100}
+              />
+              <Image
+                src={'./icons/tools/vscode.svg'}
+                alt={'vscode'}
+                className="h-24 w-24 translate-x-44 translate-y-36 transform"
+                height={80}
+                width={80}
+                quality={100}
+              />
             </div>
           </div>
           <div className="w-full max-w-96">
@@ -204,25 +230,43 @@ export const SignUpForm = () => {
                       render={({ field }) => (
                         <div className="flex space-x-4">
                           <FormItem>
-                            <FormLabel>First Name</FormLabel>
                             <FormControl>
                               <Input
                                 disabled={isPending}
                                 {...field}
+                                label='First Name'
                                 type="text"
                                 placeholder="John"
+                                leadingIcon={
+                                  <Image
+                                    src="/icons/form/User.svg"
+                                    alt="user"
+                                    height={24}
+                                    width={24}
+                                    quality={100}
+                                  />
+                                }
                               />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
                           <FormItem>
-                            <FormLabel>Last Name</FormLabel>
                             <FormControl>
                               <Input
                                 disabled={isPending}
                                 {...field}
+                                label='Last Name'
                                 type="text"
                                 placeholder="Doe"
+                                leadingIcon={
+                                  <Image
+                                    src="/icons/form/User.svg"
+                                    alt="user"
+                                    height={24}
+                                    width={24}
+                                    quality={100}
+                                  />
+                                }
                               />
                             </FormControl>
                             <FormMessage />
@@ -235,13 +279,22 @@ export const SignUpForm = () => {
                       name="username"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Username</FormLabel>
                           <FormControl>
                             <Input
                               disabled={isPending}
                               {...field}
+                              label="Username"
                               type="text"
                               placeholder="johndoe"
+                              leadingIcon={
+                                <Image
+                                  src="/icons/form/Mention.svg"
+                                  alt="user"
+                                  height={24}
+                                  width={24}
+                                  quality={100}
+                                />
+                              }
                             />
                           </FormControl>
                           <FormMessage />
@@ -253,13 +306,22 @@ export const SignUpForm = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Email</FormLabel>
                           <FormControl>
                             <Input
                               disabled={isPending}
                               {...field}
+                              label="Email"
                               type="email"
                               placeholder="johndoe@mail.com"
+                              leadingIcon={
+                                <Image
+                                  src="/icons/form/mail.svg"
+                                  alt="user"
+                                  height={24}
+                                  width={24}
+                                  quality={100}
+                                />
+                              }
                             />
                           </FormControl>
                           <FormMessage />
@@ -271,13 +333,36 @@ export const SignUpForm = () => {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Password</FormLabel>
                           <FormControl>
                             <Input
                               disabled={isPending}
                               {...field}
-                              type="password"
-                              placeholder="********"
+                              label="Password"
+                              type={isPasswordVisible ? 'text' : 'password'}
+                              placeholder="●●●●●●●●"
+                              leadingIcon={
+                                <Image
+                                  src="/icons/form/Key.svg"
+                                  alt="user"
+                                  height={24}
+                                  width={24}
+                                  quality={100}
+                                />
+                              }
+                              trailingIcon={
+                                <Image
+                                  src={
+                                    isPasswordVisible
+                                      ? '/icons/form/EyeOpen.svg'
+                                      : '/icons/form/EyeClosed.svg'
+                                  }
+                                  alt="toggle visibility"
+                                  height={24}
+                                  width={24}
+                                  quality={100}
+                                />
+                              }
+                              onTrailingIconClick={toggleVisibility}
                             />
                           </FormControl>
                           <FormMessage />

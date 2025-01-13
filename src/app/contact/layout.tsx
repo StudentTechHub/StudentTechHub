@@ -16,11 +16,15 @@ const ContactLayout: FunctionComponent<ContactLayoutProps> = ({ children }) => {
     <>
       <ThemeButton />
       <Navbar />
-      <div className="flex h-screen w-full items-center justify-center">
+      <div className="relative flex min-h-screen w-full items-center justify-center">
         <div className="absolute -z-10 h-full w-full opacity-30">
           <AnimatedEmojis />
         </div>
-        <Suspense fallback={<BeatLoader />}>{children}</Suspense>
+        <Suspense fallback={<BeatLoader />}>
+          <div className="flex flex-col items-center justify-center space-y-6 pt-28 pb-8">
+            {children}
+          </div>
+        </Suspense>
       </div>
       <Footer />
     </>
