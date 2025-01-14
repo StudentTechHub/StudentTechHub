@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "infisical run --env=dev --path=/website -- next dev",
     "build": "infisical run --env=prod --path=/website -- next build",
+    "build:netlify": "next build",
     "start": "next start",
     "lint": "next lint",
     "svg": "bun svgToReact.ts",
