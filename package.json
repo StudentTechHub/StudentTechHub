@@ -7,15 +7,16 @@
     "url": "https://github.com/StudentTechHub/StudentTechHub.git"
   },
   "scripts": {
-    "dev": "infisical run --env=dev --path=/website -- npx next dev",
-    "build": "next build",
+    "dev": "infisical run --env=dev --path=/website -- next dev",
+    "build": "infisical run --env=prod --path=/website -- next build",
+    "build:netlify": "next build",
     "start": "next start",
     "lint": "next lint",
     "svg": "bun svgToReact.ts",
     "db:generate": "infisical run --env=dev --path=/website -- npx prisma generate",
     "db:migrate": "infisical run --env=dev --path=/website -- npx prisma migrate dev",
     "db:studio": "infisical run --env=dev --path=/website -- npx prisma studio",
-    "postinstall": "infisical run --env=dev --path=/website -- npx prisma generate"
+    "postinstall": "prisma generate"
   },
   "prisma": {},
   "dependencies": {
