@@ -76,8 +76,13 @@ export default {
       animation: {
         up: 'moveUp linear infinite',
         down: 'moveDown linear infinite',
+        'caret-blink': 'caret-blink 1.25s ease-out infinite',
       },
       keyframes: {
+        'caret-blink': {
+          '0%,70%,100%': { opacity: '1' },
+          '20%,50%': { opacity: '0' },
+        },
         moveUp: {
           '0%': { top: '100%' },
           '100%': { top: '-50px' },

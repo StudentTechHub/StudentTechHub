@@ -11,7 +11,10 @@ export const LoginSchema = object({
 })
 
 export const SignUpSchema = object({
-  name: string({ required_error: 'Name is required' })
+  firstname: string({ required_error: 'First Name is required' })
+    .min(1, 'Name is required')
+    .max(32, 'Name must be less than 32 characters'),
+  lastname: string({ required_error: 'last Name is required' })
     .min(1, 'Name is required')
     .max(32, 'Name must be less than 32 characters'),
   username: string({ required_error: 'Username is required' }),
@@ -39,4 +42,13 @@ export const NewPasswordSchema = object({
 
 export const ResetSchema = object({
   email: string().min(1, 'Email is required').email('Invalid email address'),
+  otp: string().min(1, 'OTP is required'),
+  password: string()
+    .min(1, 'Password is required')
+    .min(8, 'Password must be more than 8 characters')
+    .max(32, 'Password must be less than 32 characters'),
+  confirmPassword: string()
+    .min(1, 'Password is required')
+    .min(8, 'Password must be more than 8 characters')
+    .max(32, 'Password must be less than 32 characters'),
 })

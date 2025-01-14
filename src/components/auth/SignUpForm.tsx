@@ -52,7 +52,8 @@ export const SignUpForm = () => {
   const form = useForm<z.infer<typeof SignUpSchema>>({
     resolver: zodResolver(SignUpSchema),
     defaultValues: {
-      name: '',
+      firstname: '',
+      lastname: '',
       username: '',
       email: '',
       password: '',
@@ -224,17 +225,17 @@ export const SignUpForm = () => {
                   className="space-y-6"
                 >
                   <div className="space-y-4">
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <div className="flex space-x-4">
+                    <div className="flex space-x-4">
+                      <FormField
+                        control={form.control}
+                        name="firstname"
+                        render={({ field }) => (
                           <FormItem>
                             <FormControl>
                               <Input
                                 disabled={isPending}
                                 {...field}
-                                label='First Name'
+                                label="First Name"
                                 type="text"
                                 placeholder="John"
                                 leadingIcon={
@@ -250,12 +251,18 @@ export const SignUpForm = () => {
                             </FormControl>
                             <FormMessage />
                           </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="lastname"
+                        render={({ field }) => (
                           <FormItem>
                             <FormControl>
                               <Input
                                 disabled={isPending}
                                 {...field}
-                                label='Last Name'
+                                label="Last Name"
                                 type="text"
                                 placeholder="Doe"
                                 leadingIcon={
@@ -271,9 +278,9 @@ export const SignUpForm = () => {
                             </FormControl>
                             <FormMessage />
                           </FormItem>
-                        </div>
-                      )}
-                    />
+                        )}
+                      />
+                    </div>
                     <FormField
                       control={form.control}
                       name="username"
