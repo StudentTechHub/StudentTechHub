@@ -15,7 +15,7 @@
     "db:generate": "infisical run --env=dev --path=/website -- npx prisma generate",
     "db:migrate": "infisical run --env=dev --path=/website -- npx prisma migrate dev",
     "db:studio": "infisical run --env=dev --path=/website -- npx prisma studio",
-    "postinstall": "infisical run --env=dev --path=/website -- npx prisma generate"
+    "postinstall": "prisma generate"
   },
   "prisma": {},
   "dependencies": {
