@@ -22,7 +22,7 @@ export const signup = async (
     }
   }
 
-  const { name, email, password } = validatedFields.data
+  const { firstname, lastname, email, password } = validatedFields.data
   const hashedPassword = await hashPassword(password)
 
   // * Check if the email is already in use
@@ -40,7 +40,7 @@ export const signup = async (
 
   await prisma.user.create({
     data: {
-      name,
+      name: `${firstname} ${lastname}`,
       email,
       password: hashedPassword,
     },
